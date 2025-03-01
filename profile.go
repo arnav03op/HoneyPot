@@ -40,10 +40,10 @@ type Profile struct {
 
 // InitDatabase connects to MongoDB and initializes the profiles collection.
 func InitDatabase() error {
-	// Update this URI as needed for your MongoDB environment.
+	// Retrieve the MongoDB URI from the environment.
 	uri := os.Getenv("MONGODB_URI")
 	if uri == "" {
-		// For development, log a warning and continue without DB
+		// For development, log a warning and continue without DB.
 		logrus.Warn("MONGODB_URI not set, running without database")
 		return nil
 	}
@@ -115,7 +115,6 @@ func AddLoginAttemptToDB(ip, username, password string) error {
 		},
 	}
 	opts := options.Update().SetUpsert(true)
-	// You can use the profile's IP (or an identifier from profile, if stored) here.
 	_, err = profileCollection.UpdateOne(context.TODO(), bson.M{"ip": profile.IP}, update, opts)
 	if err != nil {
 		return err
