@@ -70,9 +70,9 @@ func main() {
 	if port == "" {
 		port = "2222" // Fallback for local testing.
 	}
-	listener, err := net.Listen("tcp4", ":"+port)
+	listener, err := net.Listen("tcp4", "0.0.0.0:" + port)
 	if err != nil {
-		logrus.Fatalf("Error starting listener: %v", err)
+		logrus.Fatalf("Error starting listener on port %s: %v", port, err)
 	}
 	defer listener.Close()
 	logrus.Infof("Honeypot listening on port %s", port)
