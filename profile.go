@@ -40,7 +40,7 @@ type Profile struct {
 
 // InitDatabase connects to MongoDB and initializes the profiles collection.
 func InitDatabase() error {
-	// Retrieve the MongoDB URI from the environment.
+	// Retrieve the MongoDB URI from environment variables.
 	uri := os.Getenv("MONGODB_URI")
 	if uri == "" {
 		// For development, log a warning and continue without DB.
@@ -66,7 +66,8 @@ func InitDatabase() error {
 	return nil
 }
 
-// getOrCreateProfile retrieves the profile document for the given IP, or creates one if it doesn't exist.
+// getOrCreateProfile retrieves the profile document for the given IP,
+// or creates one if it doesn't exist.
 func getOrCreateProfile(ip string) (*Profile, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
@@ -147,4 +148,10 @@ func AddShellCommandToDB(ip, command string) error {
 	}
 	logrus.Infof("Stored shell command for IP %s: %s", ip, command)
 	return nil
+}
+
+// sendAlert sends an alert notification.
+// For now, it's a simple placeholder that logs the alert.
+func sendAlert(message string) {
+	logrus.Infof("ALERT: %s", message)
 }
