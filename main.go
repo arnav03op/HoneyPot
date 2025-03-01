@@ -66,12 +66,12 @@ func main() {
 	})
 	logrus.Info("Starting GoHoneypot...")
 
-	const port = process.env.PORT || 4000
+	//const port = process.env.PORT || 4000
 	
-	//port := os.Getenv("PORT")
-	//if port == "" {
-	//	port = "2222" // Fallback for local testing.
-	//}
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "2222" // Fallback for local testing.
+	}
 	listener, err := net.Listen("tcp4", "0.0.0.0:" + port)
 	if err != nil {
 		logrus.Fatalf("Error starting listener on port %s: %v", port, err)
