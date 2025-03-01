@@ -66,13 +66,16 @@ func main() {
 	})
 	logrus.Info("Starting GoHoneypot...")
 
-	listenPort := "2222"
-	listener, err := net.Listen("tcp", ":"+listenPort)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "2222" // Fallback for local testing.
+	}
+	listener, err := net.Listen("tcp", ":"+port)
 	if err != nil {
 		logrus.Fatalf("Error starting listener: %v", err)
 	}
 	defer listener.Close()
-	logrus.Infof("Honeypot listening on port %s", listenPort)
+	logrus.Infof("Honeypot listening on port %s", port)
 
 	// Accept incoming connections.
 	for {
