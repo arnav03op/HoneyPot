@@ -1,4 +1,4 @@
-
+module github.com/arnav03op/HoneyPot
 go 1.24.0
 
 require (
